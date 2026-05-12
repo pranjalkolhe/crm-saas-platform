@@ -2,43 +2,51 @@ import { MoreVertical } from "lucide-react";
 import { ChevronDown, Filter, Search } from "lucide-react";
 import { leads } from "../data/leads.data";
 import { statusColors } from "../utils/statusColors";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
+import Input from "@/components/ui/Input";
 
 const LeadsTable = () => {
   return (
-    <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
+    <Card className="overflow-hidden">
       <div className="overflow-x-auto">
         <div className="flex items-center justify-between border-b border-slate-200 px-8 py-6">
           <div className="flex items-center gap-3">
             <div className="relative">
               <Search
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400"
               />
 
-              <input
-                type="text"
-                placeholder="Search leads..."
-                className="h-14 rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-4 outline-none transition focus:border-blue-500"
-              />
+              <Input placeholder="Search leads..." className="h-14 pl-12" />
             </div>
 
-            <button className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition hover:bg-slate-50">
+            <Button
+              variant="secondary"
+              className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition hover:bg-slate-50"
+            >
               <Filter size={16} />
               Status
               <ChevronDown size={16} />
-            </button>
+            </Button>
 
-            <button className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition hover:bg-slate-50">
+            <Button
+              variant="secondary"
+              className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition hover:bg-slate-50"
+            >
               <Filter size={16} />
               Source
               <ChevronDown size={16} />
-            </button>
+            </Button>
           </div>
 
-          <button className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition hover:bg-slate-50">
+          <Button
+            variant="secondary"
+            className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition hover:bg-slate-50"
+          >
             Sort: Newest
             <ChevronDown size={16} />
-          </button>
+          </Button>
         </div>
 
         <table className="min-w-[1200px] w-full border-collapse">
@@ -127,16 +135,16 @@ const LeadsTable = () => {
                 </td>
 
                 <td className="px-6 py-5">
-                  <button className="rounded-lg p-2 hover:bg-slate-100">
+                  <Button className="rounded-lg p-2 hover:bg-slate-100">
                     <MoreVertical size={18} />
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </Card>
   );
 };
 

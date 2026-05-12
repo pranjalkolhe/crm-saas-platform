@@ -1,3 +1,4 @@
+import Card from "@/components/ui/Card";
 import {
   BadgeDollarSign,
   BriefcaseBusiness,
@@ -47,9 +48,9 @@ const LeadsStats = () => {
         const Icon = item.icon;
 
         return (
-          <div
+          <Card
             key={item.title}
-            className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+            className="p-5 transition-all hover:-translate-y-1 hover:shadow-lg"
           >
             {/* Top */}
             <div className="flex items-start justify-between">
@@ -78,7 +79,7 @@ const LeadsStats = () => {
 
               <span className="text-sm text-slate-400">this month</span>
             </div>
-          </div>
+          </Card>
         );
       })}
     </div>

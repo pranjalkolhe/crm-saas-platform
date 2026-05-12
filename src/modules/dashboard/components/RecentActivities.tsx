@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button";
 const activities = [
   "Sarah closed Nike deal",
   "New lead added by Rahul",
@@ -11,7 +12,12 @@ const RecentActivities = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-slate-800">Recent Activities</h2>
 
-        <button className="text-sm font-medium text-blue-600">View All</button>
+        <Button
+          variant="secondary"
+          className="text-sm font-medium text-blue-600"
+        >
+          View All
+        </Button>
       </div>
 
       <div className="mt-6 space-y-5">

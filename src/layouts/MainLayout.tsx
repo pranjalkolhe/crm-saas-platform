@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Bell, Menu, Search } from "lucide-react";
 import { sidebarItems } from "./sidebar.data";
+import Button from "@/components/ui/Button";
 
 const MainLayout = () => {
   return (
@@ -63,9 +64,12 @@ const MainLayout = () => {
         <header className="flex h-20 items-center justify-between border-b border-slate-200 bg-white px-5">
           {/* Search */}
           <div className="flex items-center gap-4">
-            <button className="rounded-xl border border-slate-400 p-3 hover:bg-slate-50">
+            <Button
+              variant="secondary"
+              className="rounded-xl border border-slate-400 p-3 hover:bg-slate-50"
+            >
               <Menu size={20} />
-            </button>
+            </Button>
 
             <div className="flex h-10 w-[420px] items-center rounded-2xl border border-slate-400 bg-slate-50 px-5">
               <Search size={18} className="mr-3 text-slate-400" />
@@ -80,22 +84,25 @@ const MainLayout = () => {
 
           {/* Right */}
           <div className="flex items-center gap-6">
-            <button className="relative rounded-full p-2 transition hover:bg-slate-100">
+            <Button
+              variant="secondary"
+              className="relative border-none rounded-full p-2 transition hover:bg-slate-100"
+            >
               <Bell size={23} className="text-slate-600" />
 
               <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
                 3
               </span>
-            </button>
+            </Button>
 
             <div className="flex items-center gap-2  border border-slate-400 bg-slate-50 rounded-full h-100% w-100% p-1 ">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500  font-bold text-white">
                 PK
               </div>
-              <div className="flex-col">
-                <span className="text-slate-900 p-0">Pranjal</span>
-                {/* <span className="text-slate-500 text-sm">Admin</span> */}
-              </div>
+              {/* <div className="flex-col"> */}
+              {/* <span className="text-slate-900 p-0">Pranjal</span> */}
+              {/* <span className="text-slate-500 text-sm">Admin</span> */}
+              {/* </div> */}
             </div>
           </div>
         </header>

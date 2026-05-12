@@ -1,5 +1,5 @@
 import { Upload } from "lucide-react";
-
+import Button from "@/components/ui/Button";
 const LeadsHeader = () => {
   return (
     <div className="flex items-center justify-between">
@@ -10,14 +10,17 @@ const LeadsHeader = () => {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="rounded-xl border flex border-slate-200 gap-2 bg-white px-4 py-3 font-medium text-slate-700 hover:bg-slate-50">
+        <Button
+          variant="secondary"
+          className="rounded-xl border flex border-slate-200 gap-2 bg-white px-4 py-3 font-medium text-slate-700 hover:bg-slate-50"
+        >
           <Upload />
           Export
-        </button>
+        </Button>
 
-        <button className="rounded-xl bg-blue-600 px-3 py-3 font-medium text-white hover:bg-blue-700">
+        <Button className="rounded-xl bg-blue-600 px-3 py-3 font-medium text-white hover:bg-blue-700">
           + Add Lead
-        </button>
+        </Button>
       </div>
     </div>
   );
