@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "@/layouts/MainLayout";
+import DashboardPage from "@/modules/dashboard/pages/DashboardPage";
+import LeadsPage from "@/modules/leads/pages/LeadsPage";
 
 const router = createBrowserRouter([
   {
@@ -9,7 +11,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Dashboard Page</div>,
+        element: <DashboardPage />,
+      },
+      {
+        path: "/leads",
+        element: <LeadsPage />,
       },
     ],
   },
