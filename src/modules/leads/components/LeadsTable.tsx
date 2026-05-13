@@ -3,7 +3,6 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import useLeads from "../hooks/useLeads";
 import { statusColors } from "../utils/statusColors";
-import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
 import LeadDetailsDrawer from "./LeadDetailsDrawer";
@@ -26,8 +25,8 @@ const LeadsTable = () => {
     <Card className="overflow-hidden">
       <div className="overflow-x-auto">
         <div className="flex items-center justify-between border-b border-slate-200 px-8 py-6">
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex items-center  gap-4">
+            <div className="relative mt-4">
               <Search
                 size={18}
                 className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400"
@@ -37,28 +36,45 @@ const LeadsTable = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search leads..."
-                className="h-14 pl-12"
+                className="pl-12"
               />
             </div>
 
-            <FilterDropdown
-              value={status}
-              onChange={setStatus}
-              options={["All", "Qualified", "Proposal", "Negotiation", "Won"]}
-            />
+            <div className="p-0">
+              <label className="mb-1 block text-xs text-center font-semibold uppercase tracking-wider text-slate-400">
+                Status
+              </label>
 
-            <FilterDropdown
-              value={source}
-              onChange={setSource}
-              options={["All", "Website", "Referral", "Cold Email", "Event"]}
-            />
+              <FilterDropdown
+                value={status}
+                onChange={setStatus}
+                options={["All", "Qualified", "Proposal", "Negotiation", "Won"]}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-center text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Source
+              </label>
+
+              <FilterDropdown
+                value={source}
+                onChange={setSource}
+                options={["All", "Website", "Referral", "Cold Email", "Event"]}
+              />
+            </div>
           </div>
 
-          <FilterDropdown
-            value={sort}
-            onChange={setSort}
-            options={["Newest", "Oldest"]}
-          />
+          <div>
+            <label className="mb-1 text-center block text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Sort By
+            </label>
+
+            <FilterDropdown
+              value={sort}
+              onChange={setSort}
+              options={["Newest", "Oldest"]}
+            />
+          </div>
         </div>
 
         <table className=" w-full border-collapse">
@@ -88,7 +104,9 @@ const LeadsTable = () => {
                 Deal Value
               </th>
 
-              <th className="w-[80px] px-4 py-4 text-center">Actions</th>
+              <th className="px-5 py-3 text-left text-sm font-semibold text-slate-400 uppercase tracking-wide">
+                Actions
+              </th>
             </tr>
           </thead>
           {leads.length === 0 && (

@@ -10,7 +10,7 @@ type FilterDropdownProps = {
 const FilterDropdown = ({ value, options, onChange }: FilterDropdownProps) => {
   return (
     <Menu as="div" className="relative">
-      <MenuButton className="flex h-14 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition-all hover:bg-slate-50">
+      <MenuButton className="flex h-10 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-medium text-slate-700 transition-all hover:bg-slate-50">
         {value}
 
         <ChevronDown size={16} className="text-slate-400" />

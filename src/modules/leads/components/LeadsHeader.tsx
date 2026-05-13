@@ -1,6 +1,9 @@
 import { Upload } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { useState } from "react";
+import AddLeadModal from "./AddLeadModal";
 const LeadsHeader = () => {
+  const [openAddLeadModal, setOpenAddLeadModal] = useState(false);
   return (
     <div className="flex items-center justify-between">
       <div>
@@ -18,10 +21,12 @@ const LeadsHeader = () => {
           Export
         </Button>
 
-        <Button className="rounded-xl bg-blue-600 px-3 py-3 font-medium text-white hover:bg-blue-700">
-          + Add Lead
-        </Button>
+        <Button onClick={() => setOpenAddLeadModal(true)}>+ Add Lead</Button>
       </div>
+      <AddLeadModal
+        open={openAddLeadModal}
+        onClose={() => setOpenAddLeadModal(false)}
+      />
     </div>
   );
 };
