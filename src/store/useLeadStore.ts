@@ -17,6 +17,7 @@ type LeadStore = {
   leads: Lead[];
 
   addLead: (lead: Omit<Lead, "id">) => void;
+  updateLead: (id: number, updatedLead: Partial<Lead>) => void;
 };
 
 const useLeadStore = create<LeadStore>((set) => ({
@@ -31,6 +32,17 @@ const useLeadStore = create<LeadStore>((set) => ({
         },
         ...state.leads,
       ],
+    })),
+  updateLead: (id, updatedLead) =>
+    set((state) => ({
+      leads: state.leads.map((lead) =>
+        lead.id === id
+          ? {
+              ...lead,
+              ...updatedLead,
+            }
+          : lead,
+      ),
     })),
 }));
 

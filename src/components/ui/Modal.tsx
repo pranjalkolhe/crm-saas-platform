@@ -13,47 +13,75 @@ const Modal = ({ open, onClose, title, children }: ModalProps) => {
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
-          />
-
-          {/* Modal */}
-          <motion.div
-            initial={{
-              opacity: 0,
-              scale: 0.96,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.96,
-              y: 20,
-            }}
-            transition={{
-              duration: 0.2,
-            }}
-            className="fixed left-1/2 top-1/2 z-50 w-full max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-[32px] border border-slate-200 bg-white shadow-2xl"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="
+        fixed inset-0 z-50
+        overflow-y-auto
+        bg-black/40
+        backdrop-blur-sm
+        p-6
+      "
+        >
+          <div
+            className="
+          flex min-h-full
+          items-center
+          justify-center
+        "
           >
-            {/* Header */}
-            <div className="border-b border-slate-200 px-8 py-6">
-              <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
-            </div>
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.95,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.95,
+              }}
+              transition={{
+                duration: 0.2,
+              }}
+              className="
+            w-full
+            max-w-2xl
+            rounded-3xl
+            bg-white
+            shadow-2xl
+            max-h-[90vh]
+            overflow-y-auto
+          "
+            >
+              {/* Header */}
+              <div className="border-b border-slate-200 px-8 py-6">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
 
-            {/* Body */}
-            <div className="p-8">{children}</div>
-          </motion.div>
-        </>
+                  <button
+                    onClick={onClose}
+                    className="
+                  text-2xl
+                  text-slate-400
+                  transition-all
+                  hover:text-slate-700
+                "
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="p-8">{children}</div>
+            </motion.div>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
