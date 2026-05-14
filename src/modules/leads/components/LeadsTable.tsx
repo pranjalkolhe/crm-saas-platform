@@ -1,13 +1,16 @@
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Pencil, Eye, Trash2 } from "lucide-react";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useLeads from "../hooks/useLeads";
 import { statusColors } from "../utils/statusColors";
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
+import Button from "@/components/ui/Button";
 import LeadDetailsDrawer from "./LeadDetailsDrawer";
 import FilterDropdown from "@/components/ui/FilterDropdown";
 import AddLeadModal from "./AddLeadModal";
+import useLeadStore from "@/store/useLeadStore";
 
 const LeadsTable = () => {
   const {
@@ -27,6 +30,26 @@ const LeadsTable = () => {
   } = useLeads();
   const [selectedLead, setSelectedLead] = useState<any>(null);
   const [editLead, setEditLead] = useState<any>(null);
+  const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const { deleteLead } = useLeadStore();
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [deleteLeadData, setDeleteLeadData] = useState<any>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setActiveMenu(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <Card className="overflow-hidden">
       <div className="overflow-x-auto">
@@ -54,7 +77,14 @@ const LeadsTable = () => {
               <FilterDropdown
                 value={status}
                 onChange={setStatus}
-                options={["All", "Qualified", "Proposal", "Negotiation", "Won"]}
+                options={[
+                  "All",
+                  "Qualified",
+                  "Proposal",
+                  "Negotiation",
+                  "Won",
+                  "Lost",
+                ]}
               />
             </div>
             <div>
@@ -170,22 +200,54 @@ const LeadsTable = () => {
                   {lead.value}
                 </td>
 
-                <td className="min-w-0 px-4 py-4">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => setSelectedLead(lead)}
-                      className="cursor-pointer rounded-lg p-2 transition hover:bg-slate-100"
-                    >
-                      <MoreVertical size={18} className="text-slate-500" />
-                    </button>
+                <td className="relative px-4 py-4">
+                  <button
+                    onClick={() =>
+                      setActiveMenu(activeMenu === lead.id ? null : lead.id)
+                    }
+                    className="rounded-lg p-2 transition hover:bg-slate-100"
+                  >
+                    <MoreVertical size={18} className="text-slate-500" />
+                  </button>
 
-                    <button
-                      onClick={() => setEditLead(lead)}
-                      className="rounded-xl bg-blue-50 px-3 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-100"
-                    >
-                      Edit
-                    </button>
-                  </div>
+                  {activeMenu === lead.id && (
+                    <div ref={dropdownRef}>
+                      <div className="absolute right-6 top-14 z-50 min-w-[180px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+                        <button
+                          onClick={() => {
+                            setSelectedLead(lead);
+                            setActiveMenu(null);
+                          }}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-slate-700 transition hover:bg-slate-50"
+                        >
+                          <Eye size={16} />
+                          View Details
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setEditLead(lead);
+                            setActiveMenu(null);
+                          }}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-slate-700 transition hover:bg-slate-50"
+                        >
+                          <Pencil size={16} />
+                          Edit Lead
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setDeleteLeadData(lead);
+                            setActiveMenu(null);
+                          }}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-500 transition hover:bg-red-50"
+                        >
+                          <Trash2 size={16} />
+                          Delete Lead
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -245,6 +307,38 @@ const LeadsTable = () => {
         editLead={editLead}
         onClose={() => setEditLead(null)}
       />
+      <Modal
+        open={!!deleteLeadData}
+        onClose={() => setDeleteLeadData(null)}
+        title="Delete Lead"
+      >
+        <div className="space-y-6">
+          <p className="text-sm leading-6 text-slate-600">
+            Are you sure you want to delete{" "}
+            <span className="font-semibold text-slate-800">
+              {deleteLeadData?.name}
+            </span>
+            ?
+          </p>
+
+          <div className="flex justify-end gap-3">
+            <Button variant="secondary" onClick={() => setDeleteLeadData(null)}>
+              Cancel
+            </Button>
+
+            <Button
+              onClick={() => {
+                deleteLead(deleteLeadData.id);
+
+                setDeleteLeadData(null);
+              }}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </Card>
   );
 };

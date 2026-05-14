@@ -175,6 +175,7 @@ const AddLeadModal = ({ open, onClose, editLead }: AddLeadModalProps) => {
             <option value="Negotiation">Negotiation</option>
 
             <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
           </select>
         </div>
         <div>

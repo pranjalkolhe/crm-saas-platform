@@ -18,6 +18,7 @@ type LeadStore = {
 
   addLead: (lead: Omit<Lead, "id">) => void;
   updateLead: (id: number, updatedLead: Partial<Lead>) => void;
+  deleteLead: (id: number) => void;
 };
 
 const useLeadStore = create<LeadStore>((set) => ({
@@ -43,6 +44,10 @@ const useLeadStore = create<LeadStore>((set) => ({
             }
           : lead,
       ),
+    })),
+  deleteLead: (id) =>
+    set((state) => ({
+      leads: state.leads.filter((lead) => lead.id !== id),
     })),
 }));
 
