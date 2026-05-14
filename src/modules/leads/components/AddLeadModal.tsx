@@ -4,6 +4,8 @@ import { z } from "zod";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Modal from "@/components/ui/Modal";
+import { toast } from "sonner";
+import useLeadStore from "@/store/useLeadStore";
 
 type AddLeadModalProps = {
   open: boolean;
@@ -30,12 +32,39 @@ const AddLeadModal = ({ open, onClose }: AddLeadModalProps) => {
     resolver: zodResolver(leadSchema),
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const { addLead } = useLeadStore();
 
-    reset();
+  const onSubmit = async (data: FormValues) => {
+    try {
+      addLead({
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        status: "Qualified",
+        source: "Website",
+        owner: "Aniket",
+        value: "$5,000",
+        initials: data.name
+          .split(" ")
+          .map((word) => word[0])
+          .join("")
+          .toUpperCase(),
+      });
 
-    onClose();
+      toast.success("Lead added successfully", {
+        description: "New lead has been added to CRM",
+      });
+
+      reset();
+
+      onClose();
+    } catch (error) {
+      console.error(error);
+
+      toast.error("Something went wrong", {
+        description: "Please try again later",
+      });
+    }
   };
 
   return (
@@ -103,8 +132,12 @@ const AddLeadModal = ({ open, onClose }: AddLeadModalProps) => {
           <Button type="button" variant="secondary" onClick={onClose}>
             Cancel
           </Button>
-
-          <Button type="submit">Add Lead</Button>
+          <button
+            type="submit"
+            className="h-11 rounded-2xl bg-blue-600 px-5 text-white"
+          >
+            Add Lead
+          </button>
         </div>
       </form>
     </Modal>

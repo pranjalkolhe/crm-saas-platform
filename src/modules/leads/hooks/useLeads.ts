@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-
-import { leads } from "../data/leads.data";
+import useLeadStore from "@/store/useLeadStore";
 
 const PAGE_SIZE = 5;
 
@@ -10,6 +9,7 @@ const useLeads = () => {
   const [sort, setSort] = useState("Newest");
   const [source, setSource] = useState("All");
   const [page, setPage] = useState(1);
+  const { leads } = useLeadStore();
 
   // Filter + Sort
   const filteredLeads = useMemo(() => {
@@ -42,7 +42,7 @@ const useLeads = () => {
     });
 
     return filtered;
-  }, [search, status, source, sort]);
+  }, [leads, search, status, source, sort]);
 
   // Total Pages
   const totalPages = Math.ceil(filteredLeads.length / PAGE_SIZE);

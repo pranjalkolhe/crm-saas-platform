@@ -181,48 +181,59 @@ const LeadsTable = () => {
           </tbody>
         </table>
         <div className="flex items-center justify-between border-t border-slate-200 px-6 py-5">
-          {/* Left */}
-          <p className="text-sm text-slate-500">
-            Showing page{" "}
-            <span className="font-semibold text-slate-700">{page}</span> of{" "}
-            <span className="font-semibold text-slate-700">{totalPages}</span>
-          </p>
+  {/* Left */}
+  <p className="text-sm text-slate-500">
+    Showing page{' '}
+    <span className="font-semibold text-slate-700">
+      {page}
+    </span>{' '}
+    of{' '}
+    <span className="font-semibold text-slate-700">
+      {totalPages}
+    </span>
+  </p>
 
-          {/* Right */}
-          <div className="flex items-center gap-2">
-            <button
-              disabled={page === 1}
-              onClick={() => setPage(page - 1)}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Previous
-            </button>
+  {/* Right */}
+  <div className="flex items-center gap-2">
+    <button
+      disabled={page === 1}
+      onClick={() =>
+        setPage(page - 1)
+      }
+      className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      Previous
+    </button>
 
-            {Array.from({
-              length: totalPages,
-            }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setPage(index + 1)}
-                className={`flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition ${
-                  page === index + 1
-                    ? "bg-blue-600 text-white"
-                    : "border border-slate-200 text-slate-600 hover:bg-slate-50"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
+    {Array.from({
+      length: totalPages,
+    }).map((_, index) => (
+      <button
+        key={index}
+        onClick={() =>
+          setPage(index + 1)
+        }
+        className={`flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition ${
+          page === index + 1
+            ? 'bg-blue-600 text-white'
+            : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+        }`}
+      >
+        {index + 1}
+      </button>
+    ))}
 
-            <button
-              disabled={page === totalPages}
-              onClick={() => setPage(page + 1)}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Next
-            </button>
-          </div>
-        </div>
+    <button
+      disabled={page === totalPages}
+      onClick={() =>
+        setPage(page + 1)
+      }
+      className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      Next
+    </button>
+  </div>
+</div>
       </div>
       <LeadDetailsDrawer
         open={!!selectedLead}
